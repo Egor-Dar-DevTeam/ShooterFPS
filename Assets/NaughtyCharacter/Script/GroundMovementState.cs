@@ -26,7 +26,7 @@ namespace NaughtyCharacter.Script
             var movement = (_characterController.transform.forward * dir.y + _characterController.transform.right * dir.x).normalized;
             _characterController.Move(_horizontalSpeed * movement * deltaTime);
         }
-         private void UpdateVerticalSpeed(float deltaTime)
+        /* private void UpdateVerticalSpeed(float deltaTime)
          {
              var IsGrounded = _isGrounded.Invoke();
              if (IsGrounded)
@@ -49,7 +49,7 @@ namespace NaughtyCharacter.Script
  
                  _verticalSpeed = Mathf.MoveTowards(_verticalSpeed, -_maxFallSpeed, _gravity * deltaTime);
              }
-         }
+         }*/
 
 
         public override void Exit()

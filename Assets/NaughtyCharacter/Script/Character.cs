@@ -22,18 +22,18 @@ namespace NaughtyCharacter.Script
         private MovementState<Transform> rotationState;
         private Controller<Transform> _playerRotation;
         private PlayerEventDelegates.RotationAxis RotationAxis;
-        private LayerMask GroundLayers = LayerMask.NameToLayer("Ground");
+       // private LayerMask GroundLayers = LayerMask.NameToLayer("Ground");
         private float SphereCastRadius = 0.35f;
         private float SphereCastDistance = 0.15f;
 
-        private bool CheckGrounded()
+        /*private bool CheckGrounded()
         {
             var spherePosition = transform.position;
             spherePosition.y =  transform.position.y + SphereCastRadius - SphereCastDistance;
             var isGrounded = Physics.CheckSphere(spherePosition, SphereCastRadius, GroundLayers, QueryTriggerInteraction.Ignore);
 
             return isGrounded;
-        }
+        }*/
         private void Reset()
         {
             _characterController ??= GetComponent<CharacterController>();
@@ -71,7 +71,7 @@ namespace NaughtyCharacter.Script
             return new Delegate[]
             {
                 (PlayerEventDelegates.GetDirection) Updates,
-                (PlayerEventDelegates.GETIsGrounded) CheckGrounded
+                //(PlayerEventDelegates.GETIsGrounded) CheckGrounded
             };
         }
     }
