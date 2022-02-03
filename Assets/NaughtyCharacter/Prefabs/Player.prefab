@@ -65,6 +65,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterController: {fileID: 2387375738895109979}
   mouseSentivity: 100
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 311
 --- !u!1001 &2755396542799682813
 PrefabInstance:
   m_ObjectHideFlags: 0
