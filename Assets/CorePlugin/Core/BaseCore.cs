@@ -22,7 +22,6 @@ using CorePlugin.Core.Interface;
 using CorePlugin.Logger;
 using UnityEngine;
 
-
 namespace CorePlugin.Core
 {
     /// <summary>

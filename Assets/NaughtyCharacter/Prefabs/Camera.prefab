@@ -96,9 +96,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baacb37e4ad544208a36f474ed89f4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minTiltAngle: -70
-  maxTiltAngle: 80
-  sensitivity: 3
-  smoothFactor: 15
-  smooth: 1
-  invert: 0
+  sensitivity: 2
+  dump: 0
