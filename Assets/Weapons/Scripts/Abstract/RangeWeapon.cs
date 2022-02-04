@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using BaseInterfaces;
+using UnityEngine;
 using Weapons.Scripts.Abstract.Base;
 
 namespace Weapons.Scripts.Abstract
 {
-    public abstract class RangeWeapon: Weapon
+    public abstract class RangeWeapon : Weapon
     {
         [SerializeField] protected float reloadTime;
         [SerializeField] protected float attackDistance;
@@ -11,15 +12,15 @@ namespace Weapons.Scripts.Abstract
 
         private void ReloadAmmo()
         {
-            
+
         }
         public override void Attack()
         {
             RaycastHit hit;
-            
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit))
+            if (!Physics.Raycast(camera.transform.position, camera.transform.forward, out hit)) return;
+            if (hit.collider.TryGetComponent<IDamageble>(out var damageble))
             {
-                
+                damageble.ReceiveDamage(damage);
             }
         }
     }

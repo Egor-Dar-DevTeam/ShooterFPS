@@ -1,12 +1,16 @@
 ﻿using System;
+using CorePlugin.Attributes.Validation;
 using CorePlugin.Cross.Events.Interface;
+using GeneralEventType;
 using UnityEngine;
 
 namespace NaughtyCharacter.Script
 {
     public class CameraController : MonoBehaviour, IEventSubscriber
     {
+        [NotNull] [SerializeField] private Camera camera;
         [SerializeField] private float sensitivity = 100f;
+        private Camera GetCamera() => camera;
         private float xRotation = 0f;
         void Start()
         {
@@ -27,7 +31,8 @@ namespace NaughtyCharacter.Script
         {
             return new Delegate[]
             {
-                (PlayerEventDelegates.SetCameraInput) CameraUpdate
+                (PlayerEventDelegates.SetCameraInput) CameraUpdate,
+                (GeneralEventDelegates.GetCamera) GetCamera
             };
         }
     }
