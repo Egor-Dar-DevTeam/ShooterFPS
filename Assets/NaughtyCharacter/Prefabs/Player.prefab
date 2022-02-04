@@ -66,6 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterController: {fileID: 2387375738895109979}
   mouseSentivity: 100
+<<<<<<< HEAD
 --- !u!1 &3413552305499227038
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +97,11 @@ Transform:
   m_Father: {fileID: 6976449131418327998}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 311
+>>>>>>> Player
 --- !u!1001 &2755396542799682813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,6 +109,7 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6976449131418327998}
     m_Modifications:
+<<<<<<< HEAD
     - target: {fileID: 2498024240665955953, guid: 9812c60d4ca64d741b340f52f62f444b,
         type: 3}
       propertyPath: camera
@@ -118,6 +125,8 @@ PrefabInstance:
       propertyPath: sensitivity
       value: 100
       objectReference: {fileID: 0}
+=======
+>>>>>>> Player
     - target: {fileID: 8156937013289311483, guid: 9812c60d4ca64d741b340f52f62f444b,
         type: 3}
       propertyPath: m_RootOrder

@@ -22,18 +22,9 @@ namespace NaughtyCharacter.Script
         private MovementState<Transform> rotationState;
         private Controller<Transform> _playerRotation;
         private PlayerEventDelegates.RotationAxis RotationAxis;
-       // private LayerMask GroundLayers = LayerMask.NameToLayer("Ground");
         private float SphereCastRadius = 0.35f;
         private float SphereCastDistance = 0.15f;
-
-        /*private bool CheckGrounded()
-        {
-            var spherePosition = transform.position;
-            spherePosition.y =  transform.position.y + SphereCastRadius - SphereCastDistance;
-            var isGrounded = Physics.CheckSphere(spherePosition, SphereCastRadius, GroundLayers, QueryTriggerInteraction.Ignore);
-
-            return isGrounded;
-        }*/
+        
         private void Reset()
         {
             _characterController ??= GetComponent<CharacterController>();
@@ -53,6 +44,10 @@ namespace NaughtyCharacter.Script
             movementState.CurrentState.Updates(dir, Time.deltaTime);
             //rotationState.CurrentState.Updates(Direction(),Time.deltaTime);
         }
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(new Vector3(transform.position.x,transform.position.y-1,transform.position.z),0.5f);
+        }
 
         public void InvokeEvents()
         {
@@ -70,8 +65,7 @@ namespace NaughtyCharacter.Script
         {
             return new Delegate[]
             {
-                (PlayerEventDelegates.GetDirection) Updates,
-                //(PlayerEventDelegates.GETIsGrounded) CheckGrounded
+                (PlayerEventDelegates.GetDirection) Updates
             };
         }
     }

@@ -2,12 +2,18 @@ using System;
 using CorePlugin.Cross.Events.Interface;
 using CorePlugin.Extensions;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace NaughtyCharacter.Script
 {
-    public class NewInputSystem : MonoBehaviour, IEventHandler
+    public sealed class NewInputSystem : MonoBehaviour, IEventHandler, IEventSubscriber
     {
         private Vector2 axisRot;
+        private bool _jumpInput;
+        private bool GetJumpInput()
+        {
+            return _jumpInput;
+        }
         
         private PlayerInput _inputActions;
         private event PlayerEventDelegates.SetMovementInput SetMovementInput;
@@ -29,6 +35,8 @@ namespace NaughtyCharacter.Script
         {
            var dir = _inputActions.Player.Movement.ReadValue<Vector2>();
            GetDirection?.Invoke(dir);
+
+           _jumpInput = (_inputActions.Player.Jump.phase == InputActionPhase.Canceled);
             
             axisRot = _inputActions.Camera.Delta.ReadValue<Vector2>();
             SetCameraInput?.Invoke(axisRot);
@@ -53,6 +61,13 @@ namespace NaughtyCharacter.Script
             EventExtensions.Unsubscribe(ref SetMovementInput, unsubscribers);
             EventExtensions.Unsubscribe(ref GetDirection, unsubscribers);
             EventExtensions.Unsubscribe(ref SetCameraInput, unsubscribers);
+        }
+        public Delegate[] GetSubscribers()
+        {
+            return new Delegate[]
+            {
+                (PlayerEventDelegates.GETJumpInput) GetJumpInput
+            };
         }
     }
 }
