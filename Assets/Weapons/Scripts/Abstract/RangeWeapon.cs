@@ -17,10 +17,13 @@ namespace Weapons.Scripts.Abstract
         public override void Attack()
         {
             RaycastHit hit;
-            if (!Physics.Raycast(camera.transform.position, camera.transform.forward, out hit)) return;
-            if (hit.collider.TryGetComponent<IDamageble>(out var damageble))
+            Debug.DrawRay(camera.transform.position,camera.transform.forward,Color.blue);
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit))
             {
-                damageble.ReceiveDamage(damage);
+                if (hit.collider.TryGetComponent<IDamageble>(out var damageble))
+                {
+                    damageble.ReceiveDamage(damage);
+                }
             }
         }
     }

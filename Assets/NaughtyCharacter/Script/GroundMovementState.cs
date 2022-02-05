@@ -1,6 +1,8 @@
 ﻿using System;
+using CorePlugin.Cross.Events.Interface;
 using CorePlugin.Extensions;
 using UnityEngine;
+using Weapons.Scripts.Abstract.Base.Interfaces;
 
 namespace NaughtyCharacter.Script
 {
@@ -19,13 +21,16 @@ namespace NaughtyCharacter.Script
         private bool _isGrounded = true;
         private bool _justWalkedOffEdge = false;
 
+        private IAttacked _attacked;
         private CharacterController _characterController;
         private Transform _transform;
         private PlayerEventDelegates.GETJumpInput GetJumpInput;
+        private PlayerEventDelegates.GETInputShoot GETInputShoot;
 
-        public override void Initialize(CharacterController characterController)
+        public override void Initialize(CharacterController characterController, IAttacked attacked)
         {
             _characterController = characterController;
+            _attacked = attacked;
             _transform = _characterController.transform;
             _transform.position = new Vector3(25, 1, -25);
         }
@@ -33,12 +38,17 @@ namespace NaughtyCharacter.Script
         {
             var isGrounded = CheckGrounded();
             _justWalkedOffEdge = false || _isGrounded && !isGrounded && !GetJumpInput.Invoke();
-
-
             _isGrounded = isGrounded;
+            
             UpdateVerticalSpeed(deltaTime);
+            
             var movement = (_transform.forward * dir.y + _transform.right * dir.x).normalized;
             _characterController.Move(_horizontalSpeed * movement * deltaTime);
+        }
+
+        private void Shoot()
+        {
+            _attacked.Attack();
         }
 
         private bool CheckGrounded()
@@ -52,7 +62,7 @@ namespace NaughtyCharacter.Script
 
         private void UpdateVerticalSpeed(float deltaTime)
         {
-            Debug.Log(_isGrounded);
+           // Debug.Log(_isGrounded);
             if (_isGrounded)
             {
                 _verticalSpeed = -_groundedGravity;
@@ -92,10 +102,19 @@ namespace NaughtyCharacter.Script
         public override void Subscribe(params Delegate[] subscribers)
         {
             EventExtensions.Subscribe(ref GetJumpInput, subscribers);
+            EventExtensions.Subscribe(ref GETInputShoot, subscribers);
         }
         public override void Unsubscribe(params Delegate[] unsubscribers)
         {
             EventExtensions.Unsubscribe(ref GetJumpInput, unsubscribers);
+            EventExtensions.Unsubscribe(ref GETInputShoot, unsubscribers);
+        }
+        public override Delegate[] GetSubscribers()
+        {
+            return new Delegate[]
+            {
+                (PlayerEventDelegates.Shoot) Shoot
+            };
         }
     }
 }

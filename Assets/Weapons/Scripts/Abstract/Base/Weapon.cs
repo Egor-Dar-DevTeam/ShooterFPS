@@ -2,6 +2,7 @@ using System;
 using CorePlugin.Cross.Events.Interface;
 using CorePlugin.Extensions;
 using GeneralEventType;
+using NaughtyCharacter.Script;
 using UnityEngine;
 using Weapons.Scripts.Abstract.Base.Interfaces;
 
