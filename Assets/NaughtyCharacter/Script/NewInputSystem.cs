@@ -42,7 +42,6 @@ namespace NaughtyCharacter.Script
                 _jumpInput = false;
             }
         }
-        private float i;
         public void OnShootEvent(InputAction.CallbackContext context)
         {
             if (context.started)
