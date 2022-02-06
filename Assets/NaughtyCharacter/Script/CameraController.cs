@@ -10,12 +10,8 @@ namespace NaughtyCharacter.Script
     {
         [NotNull] [SerializeField] private Camera camera;
         [SerializeField] private float sensitivity = 100f;
-<<<<<<< HEAD
         private Camera GetCamera() => camera;
-=======
 
-        [SerializeField] [Range(0, 1)] private float dump;
->>>>>>> Player
         private float xRotation = 0f;
         void Start()
         {
@@ -30,7 +26,6 @@ namespace NaughtyCharacter.Script
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -80f, 80f);
             transform.localEulerAngles = new Vector3(xRotation, 0, 0);
-            //transform.parent.transform.localRotation =Quaternion.Lerp(transform.localRotation, Quaternion.Euler(new Vector3(mouseX,0,0)), dump);
         }
         public Delegate[] GetSubscribers()
         {
