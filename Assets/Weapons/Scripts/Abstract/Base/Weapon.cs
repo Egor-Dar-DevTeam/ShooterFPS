@@ -20,6 +20,11 @@ namespace Weapons.Scripts.Abstract.Base
             camera = GetCamera.Invoke();
         }
         public abstract void Attack();
+
+        public void Exit()
+        {
+            
+        }
         public void InvokeEvents()
         {
 

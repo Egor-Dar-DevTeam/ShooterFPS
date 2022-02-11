@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6976449131418327998}
   - component: {fileID: 2387375738895109979}
   - component: {fileID: 9078985587281573009}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterController: {fileID: 2387375738895109979}
   _arm: {fileID: 129093409012668663}
-  _weapon: {fileID: 6491643820146194737, guid: bb7e7435b37914746ba38b6473820ed8, type: 3}
+  weaponData: {fileID: 11400000, guid: 48d60b27cadbb2042b5c572473b601ed, type: 2}
 --- !u!1 &8643254335709912778
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +75,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 129093409012668663}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,6 +177,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 9079671788127129012, guid: 9812c60d4ca64d741b340f52f62f444b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9812c60d4ca64d741b340f52f62f444b, type: 3}
