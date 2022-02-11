@@ -1,38 +1,13 @@
 ﻿using System;
-using CorePlugin.Attributes.Validation;
-using CorePlugin.Core;
-using CorePlugin.Cross.Events.Interface;
 using CorePlugin.Extensions;
-using UnityEditor;
 using UnityEngine;
 using Weapons.Scripts;
-using Weapons.Scripts.Abstract.Base;
-using Weapons.Scripts.Abstract.Base.Interfaces;
 
 namespace NaughtyCharacter.Script
 {
-    public class WeaponChange
-    {
-        private Weapon currentWeapon;
-        public IAttacked GetAttackedWeapon() => currentWeapon;
-
-        public void SetWeapon(Weapon newWeapon)
-        {
-            currentWeapon?.Exit();
-            currentWeapon = newWeapon;
-            EventInitializer.AddHandler(newWeapon, true, false);
-        }
-    }
-
     [Serializable]
     public class GroundMovementState : Controller<CharacterController>
     {
-        private WeaponsData _weapons;
-        private IAttacked _attacked;
-        private Transform _armTransform;
-        private WeaponChange _weaponChange;
-
-        
         private readonly float _gravity = 20f;
         private readonly float _groundedGravity = 1f;
         private readonly float _horizontalSpeed = 5;
@@ -49,15 +24,9 @@ namespace NaughtyCharacter.Script
 
         public override void Initialize(CharacterController characterController, WeaponsData data, Transform arm)
         {
-            _weapons = data;
-            _armTransform = arm;
             _characterController = characterController;
             _transform = _characterController.transform;
             _transform.position = new Vector3(25, 1, -25);
-            _weaponChange = new WeaponChange();
-            var weapon = _weapons.GetWeaponVariant(0);
-            _weaponChange.SetWeapon(weapon.Weapon);
-            _attacked = _weaponChange.GetAttackedWeapon();
         }
 
         public override void Updates(Vector3 dir, float deltaTime)
@@ -72,7 +41,6 @@ namespace NaughtyCharacter.Script
 
         private void Shoot()
         {
-            _attacked.Attack();
         }
 
         private bool CheckGrounded()

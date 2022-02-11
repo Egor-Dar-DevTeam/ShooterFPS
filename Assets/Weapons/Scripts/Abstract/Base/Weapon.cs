@@ -1,4 +1,5 @@
 using System;
+using BaseInterfaces;
 using CorePlugin.Cross.Events.Interface;
 using CorePlugin.Extensions;
 using GeneralEventType;
@@ -21,9 +22,9 @@ namespace Weapons.Scripts.Abstract.Base
         }
         public abstract void Attack();
 
-        public void Exit()
+        public void Exit(bool state)
         {
-            
+            gameObject.SetActive(state);
         }
         public void InvokeEvents()
         {
