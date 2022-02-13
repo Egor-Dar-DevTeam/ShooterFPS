@@ -1,9 +1,6 @@
 ﻿using System;
-using CorePlugin.Attributes.EditorAddons.SelectAttributes;
-using CorePlugin.Attributes.Validation;
 using UnityEngine;
 using Weapons.Scripts.Abstract.Base;
-using Weapons.Scripts.Abstract.Base.Interfaces;
 
 namespace Weapons.Scripts
 {

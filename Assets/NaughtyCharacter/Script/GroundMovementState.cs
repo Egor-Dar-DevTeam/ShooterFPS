@@ -22,7 +22,7 @@ namespace NaughtyCharacter.Script
         private PlayerEventDelegates.GETJumpInput GetJumpInput;
         private PlayerEventDelegates.GETInputShoot GETInputShoot;
 
-        public override void Initialize(CharacterController characterController, WeaponsData data, Transform arm)
+        public override void Initialize(CharacterController characterController)
         {
             _characterController = characterController;
             _transform = _characterController.transform;
@@ -38,11 +38,7 @@ namespace NaughtyCharacter.Script
             var movement = (_transform.forward * dir.y + _transform.right * dir.x).normalized;
             _characterController.Move(_horizontalSpeed * movement * deltaTime);
         }
-
-        private void Shoot()
-        {
-        }
-
+        
         private bool CheckGrounded()
         {
             var spherePosition = _transform.position;
@@ -58,7 +54,6 @@ namespace NaughtyCharacter.Script
             {
                 _verticalSpeed = -_groundedGravity;
                 if (!GetJumpInput.Invoke()) return;
-                Debug.Log("jumped");
                 _verticalSpeed += Mathf.Sqrt(_jumpSpeed * -3.0f * -_gravity);
             }
             else _verticalSpeed += -_gravity * deltaTime;
@@ -85,14 +80,6 @@ namespace NaughtyCharacter.Script
         {
             EventExtensions.Unsubscribe(ref GetJumpInput, unsubscribers);
             EventExtensions.Unsubscribe(ref GETInputShoot, unsubscribers);
-        }
-
-        public override Delegate[] GetSubscribers()
-        {
-            return new Delegate[]
-            {
-                (PlayerEventDelegates.Shoot) Shoot
-            };
         }
     }
 }

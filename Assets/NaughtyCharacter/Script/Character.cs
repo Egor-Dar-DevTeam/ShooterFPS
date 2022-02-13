@@ -1,11 +1,8 @@
 using System;
 using CorePlugin.Attributes.EditorAddons;
 using CorePlugin.Attributes.Validation;
-using CorePlugin.Core;
 using CorePlugin.Cross.Events.Interface;
 using UnityEngine;
-using Weapons.Scripts;
-using Weapons.Scripts.Abstract.Base.Interfaces;
 
 namespace NaughtyCharacter.Script
 {
@@ -13,8 +10,6 @@ namespace NaughtyCharacter.Script
     public class Character : MonoBehaviour, IEventSubscriber
     {
         [SerializeField] [NotNull] private CharacterController _characterController;
-        [SerializeField] [NotNull] private Transform _arm;
-        [SerializeField] [NotNull] private WeaponsData weaponData;
 
         private Controller<CharacterController> _groundMovement;
         private MovementState<CharacterController> movementState;
@@ -28,7 +23,7 @@ namespace NaughtyCharacter.Script
         {
             _groundMovement = new GroundMovementState();
             movementState = new MovementState<CharacterController>();
-            movementState.SetMovement(_groundMovement, weaponData, _characterController,_arm, true);
+            movementState.SetMovement(_groundMovement, _characterController,true);
         }
 
         private void Updates(Vector2 dir)
@@ -50,9 +45,3 @@ namespace NaughtyCharacter.Script
         }
     }
 }
-
-/*
-var wep = Instantiate(_weapons,_arm);
-_weapons = wep;
-EventInitializer.AddHandler(wep.GetComponent<IEventHandler>());
-weaponAttacked = wep.GetComponent<IAttacked>();*/

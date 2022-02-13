@@ -10,6 +10,5 @@ namespace NaughtyCharacter.Script
         public delegate bool GETJumpInput();
         public delegate void SetMovementInput(Vector2 axis);
         public delegate void SetCameraInput(Vector2 axis);
-        public delegate void Shoot();
     }
 }

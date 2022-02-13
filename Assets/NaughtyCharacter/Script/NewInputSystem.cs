@@ -18,7 +18,6 @@ namespace NaughtyCharacter.Script
         private event PlayerEventDelegates.SetMovementInput SetMovementInput;
         private event PlayerEventDelegates.GetDirection GetDirection;
         private event PlayerEventDelegates.SetCameraInput SetCameraInput;
-        private event PlayerEventDelegates.Shoot Shoot;
         
         private void OnEnable()
         {
@@ -46,7 +45,7 @@ namespace NaughtyCharacter.Script
         {
             if (context.started)
             {
-                Shoot?.Invoke();
+                //Shoot?.Invoke();
             }
         }
 
@@ -72,14 +71,12 @@ namespace NaughtyCharacter.Script
         public void Subscribe(params Delegate[] subscribers)
         {
             EventExtensions.Subscribe(ref SetMovementInput, subscribers);
-            EventExtensions.Subscribe(ref Shoot, subscribers);
             EventExtensions.Subscribe(ref GetDirection, subscribers);
             EventExtensions.Subscribe(ref SetCameraInput, subscribers);
         }
         public void Unsubscribe(params Delegate[] unsubscribers)
         {
             EventExtensions.Unsubscribe(ref SetMovementInput, unsubscribers);
-            EventExtensions.Unsubscribe(ref Shoot, unsubscribers);
             EventExtensions.Unsubscribe(ref GetDirection, unsubscribers);
             EventExtensions.Unsubscribe(ref SetCameraInput, unsubscribers);
         }

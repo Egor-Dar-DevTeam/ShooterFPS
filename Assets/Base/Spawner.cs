@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using BaseInterfaces;
-using CorePlugin.Cross.Events.Interface;
 using UnityEngine;
 using UnityEngine.Pool;
 using Weapons.Scripts.Abstract.Base;

@@ -1,10 +1,6 @@
-﻿using System;
-using Base;
-using CorePlugin.Core;
-using CorePlugin.Extensions;
+﻿using CorePlugin.Core;
 using Weapons.Scripts.Abstract.Base;
 using Weapons.Scripts.Abstract.Base.Interfaces;
-using IEventHandler = CorePlugin.Cross.Events.Interface.IEventHandler;
 
 namespace NaughtyCharacter.Script
 {
