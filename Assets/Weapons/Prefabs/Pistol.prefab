@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3405188845196950343
 Transform:
@@ -44,11 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef75f040d9f8c214585a389de155118d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSingleShoot: 1
   damage: 1
   attackSpeed: 1
   reloadTime: 1.2
   attackDistance: 100
-  ammoCount: 10
+  ammoCountCurrent: 0
+  ammoCountLeft: 50
+  ammoCountLeftMax: 60
+  MayBeInLoop: 8
 --- !u!1001 &9125429193974666688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56,9 +60,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3405188845196950343}
     m_Modifications:
+    - target: {fileID: 100000, guid: c1232b0a1b78ddf44bd877453fb7a84c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: c1232b0a1b78ddf44bd877453fb7a84c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: c1232b0a1b78ddf44bd877453fb7a84c, type: 3}
       propertyPath: m_Name
       value: pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: c1232b0a1b78ddf44bd877453fb7a84c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: c1232b0a1b78ddf44bd877453fb7a84c, type: 3}
       propertyPath: m_RootOrder

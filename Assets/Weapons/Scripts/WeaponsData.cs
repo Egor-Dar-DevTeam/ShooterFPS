@@ -8,7 +8,18 @@ namespace Weapons.Scripts
     public class WeaponsData : ScriptableObject
     {
         [SerializeField] private WeaponVariant[] _weaponVariant;
-        public WeaponVariant GetWeaponVariant(int index) => _weaponVariant[index];
+
+        public Weapon GetWeapon(string weaponName)
+        {
+            Weapon weapon = null; 
+            for (int i = 0; i < _weaponVariant.Length; i++)
+            {
+                if (_weaponVariant[i].weaponName != weaponName) continue;
+                    weapon = _weaponVariant[i].Weapon;
+                    break;
+            }
+            return weapon;
+        }
     }
 [Serializable]
     public struct WeaponVariant

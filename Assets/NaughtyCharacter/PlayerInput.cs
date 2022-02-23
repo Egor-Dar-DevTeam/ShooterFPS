@@ -40,6 +40,22 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""id"": ""cb5fbace-c887-4e37-aa08-af9c40c6354c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
+                    ""interactions"": ""SlowTap""
+                },
+                {
+                    ""name"": ""MoseScroll"",
+                    ""type"": ""Value"",
+                    ""id"": ""bfde9bb5-f9ab-42f4-b8cc-661d378f7ab4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ReloadAmmo"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e55762b-d37c-46b6-8912-ec5d15a1fd4a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
                     ""interactions"": """"
                 }
             ],
@@ -168,11 +184,33 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""497b8e8c-c439-4c3f-8334-22b67e0317ad"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""*/{PrimaryAction}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e47925fe-7639-4857-b98d-47ebe674de66"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""MoseScroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dab87dc1-0da3-4a59-b751-a86dc9c37817"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ReloadAmmo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -252,6 +290,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+        m_Player_MoseScroll = m_Player.FindAction("MoseScroll", throwIfNotFound: true);
+        m_Player_ReloadAmmo = m_Player.FindAction("ReloadAmmo", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Delta = m_Camera.FindAction("Delta", throwIfNotFound: true);
@@ -307,6 +347,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Shoot;
+    private readonly InputAction m_Player_MoseScroll;
+    private readonly InputAction m_Player_ReloadAmmo;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -314,6 +356,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+        public InputAction @MoseScroll => m_Wrapper.m_Player_MoseScroll;
+        public InputAction @ReloadAmmo => m_Wrapper.m_Player_ReloadAmmo;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -332,6 +376,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @MoseScroll.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoseScroll;
+                @MoseScroll.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoseScroll;
+                @MoseScroll.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoseScroll;
+                @ReloadAmmo.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReloadAmmo;
+                @ReloadAmmo.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReloadAmmo;
+                @ReloadAmmo.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReloadAmmo;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -345,6 +395,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @MoseScroll.started += instance.OnMoseScroll;
+                @MoseScroll.performed += instance.OnMoseScroll;
+                @MoseScroll.canceled += instance.OnMoseScroll;
+                @ReloadAmmo.started += instance.OnReloadAmmo;
+                @ReloadAmmo.performed += instance.OnReloadAmmo;
+                @ReloadAmmo.canceled += instance.OnReloadAmmo;
             }
         }
     }
@@ -405,6 +461,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnMoseScroll(InputAction.CallbackContext context);
+        void OnReloadAmmo(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

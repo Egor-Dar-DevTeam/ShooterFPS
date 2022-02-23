@@ -1,4 +1,5 @@
-﻿using BaseInterfaces;
+﻿using System.Collections;
+using BaseInterfaces;
 using UnityEngine;
 using Weapons.Scripts.Abstract.Base;
 
@@ -8,23 +9,30 @@ namespace Weapons.Scripts.Abstract
     {
         [SerializeField] protected float reloadTime;
         [SerializeField] protected float attackDistance;
-        [SerializeField] protected float ammoCount;
 
-        private void ReloadAmmo()
-        {
+        [Space]
 
-        }
-        public override void Attack()
+        #region Ammo
+
+        [SerializeField]
+        protected int ammoCountCurrent; //Патронов в обойме на данный момент
+
+        [SerializeField] protected int ammoCountLeft; //Осталось патронов всего
+        [SerializeField] protected int ammoCountLeftMax; //Макс патронов всего
+        [SerializeField] protected int MayBeInLoop; //может быть в обойме
+
+        #endregion
+
+        protected bool AttackStoped = true;
+
+        public override void ReloadAmmo()
         {
-            RaycastHit hit;
-            Debug.DrawRay(camera.transform.position,camera.transform.forward,Color.blue);
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit))
-            {
-                if (hit.collider.TryGetComponent<IDamageble>(out var damageble))
-                {
-                    damageble.ReceiveDamage(damage);
-                }
-            }
+            if (ammoCountCurrent == MayBeInLoop || ammoCountLeft == 0 || MayBeInLoop == 0) return;
+            ammoCountLeft = Mathf.Clamp(ammoCountLeft - (MayBeInLoop - ammoCountCurrent), 0, ammoCountLeftMax);
+            ammoCountCurrent = Mathf.Clamp(ammoCountCurrent + (MayBeInLoop - ammoCountCurrent), 0, MayBeInLoop);
         }
+
+        public override bool IsReady() => AttackStoped;
+        public override bool IsSingleShoot() => isSingleShoot;
     }
 }

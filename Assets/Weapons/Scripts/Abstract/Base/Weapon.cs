@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using CorePlugin.Cross.Events.Interface;
 using CorePlugin.Extensions;
 using GeneralEventType;
@@ -7,34 +8,27 @@ using Weapons.Scripts.Abstract.Base.Interfaces;
 
 namespace Weapons.Scripts.Abstract.Base
 {
-    public abstract class Weapon : MonoBehaviour, IAttacked, IEventHandler
+    public abstract class Weapon : MonoBehaviour, IAttacked
     {
+        [SerializeField] protected bool isSingleShoot;
         [SerializeField] protected int damage;
         [SerializeField] protected float attackSpeed;
         protected Camera camera;
-        private GeneralEventDelegates.GetCamera GetCamera;
 
-        private void Start()
+        public virtual void Initialize(Camera camera)
         {
-            camera = GetCamera.Invoke();
+            this.camera = camera;
         }
-        public abstract void Attack();
+        
+        public abstract bool IsReady();
+        public abstract bool IsSingleShoot();
+        public abstract void ReloadAmmo();
 
-        public void Exit(bool state)
+        public abstract IEnumerator Attack(bool? isPressed);
+
+        public void SetActive(bool state)
         {
             gameObject.SetActive(state);
-        }
-        public void InvokeEvents()
-        {
-
-        }
-        public void Subscribe(params Delegate[] subscribers)
-        {
-            EventExtensions.Subscribe(ref GetCamera, subscribers);
-        }
-        public void Unsubscribe(params Delegate[] unsubscribers)
-        {
-            EventExtensions.Unsubscribe(ref GetCamera, unsubscribers);
         }
     }
 }

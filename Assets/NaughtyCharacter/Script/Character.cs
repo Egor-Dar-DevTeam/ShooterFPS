@@ -10,6 +10,8 @@ namespace NaughtyCharacter.Script
     public class Character : MonoBehaviour, IEventSubscriber
     {
         [SerializeField] [NotNull] private CharacterController _characterController;
+        [SerializeField] private Transform arm;
+        private Transform GetArm() => arm;
 
         private Controller<CharacterController> _groundMovement;
         private MovementState<CharacterController> movementState;
@@ -40,7 +42,8 @@ namespace NaughtyCharacter.Script
         {
             return new Delegate[]
             {
-                (PlayerEventDelegates.GetDirection) Updates
+                (PlayerEventDelegates.GetDirection) Updates,
+                (PlayerEventDelegates.GetArm) GetArm
             };
         }
     }

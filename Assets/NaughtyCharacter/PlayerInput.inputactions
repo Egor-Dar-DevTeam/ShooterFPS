@@ -27,6 +27,22 @@
                     "id": "cb5fbace-c887-4e37-aa08-af9c40c6354c",
                     "expectedControlType": "Button",
                     "processors": "",
+                    "interactions": "SlowTap"
+                },
+                {
+                    "name": "MoseScroll",
+                    "type": "Value",
+                    "id": "bfde9bb5-f9ab-42f4-b8cc-661d378f7ab4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ReloadAmmo",
+                    "type": "Button",
+                    "id": "4e55762b-d37c-46b6-8912-ec5d15a1fd4a",
+                    "expectedControlType": "Button",
+                    "processors": "",
                     "interactions": ""
                 }
             ],
@@ -155,11 +171,33 @@
                 {
                     "name": "",
                     "id": "497b8e8c-c439-4c3f-8334-22b67e0317ad",
-                    "path": "<Mouse>/leftButton",
+                    "path": "*/{PrimaryAction}",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e47925fe-7639-4857-b98d-47ebe674de66",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "MoseScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dab87dc1-0da3-4a59-b751-a86dc9c37817",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "ReloadAmmo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

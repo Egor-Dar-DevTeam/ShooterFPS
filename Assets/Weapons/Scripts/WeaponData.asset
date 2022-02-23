@@ -16,3 +16,6 @@ MonoBehaviour:
   - weaponName: Pistol
     Weapon: {fileID: 4850814950207576642, guid: bb7e7435b37914746ba38b6473820ed8,
       type: 3}
+  - weaponName: Uzi
+    Weapon: {fileID: 6680362734827918227, guid: d4c8477d9690d1345a055fbfeaccaf99,
+      type: 3}
