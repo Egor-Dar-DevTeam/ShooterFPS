@@ -11,15 +11,19 @@ namespace NaughtyCharacter.Script
         private readonly float _gravity = 20f;
         private readonly float _groundedGravity = 1f;
         private readonly float _horizontalSpeed = 5;
+        private readonly float _horizontalSprintSpeed = 9;
         private readonly float _jumpSpeed = 0.6f;
+        private float _horizontalCurrentSpeed;
 
         private float _verticalSpeed = 0;
         private float _sphereCastRadius = 0.1f;
         private bool _isGrounded = false;
+        private bool _isSprint = false;
 
         private CharacterController _characterController;
         private Transform _transform;
         private PlayerEventDelegates.GETJumpInput GetJumpInput;
+        private PlayerEventDelegates.GETSprintInput GetSprintInput;
         private PlayerEventDelegates.GETInputShoot GETInputShoot;
 
         public override void Initialize(CharacterController characterController)
@@ -32,11 +36,14 @@ namespace NaughtyCharacter.Script
         public override void Updates(Vector3 dir, float deltaTime)
         {
             _isGrounded = CheckGrounded();
+            _isSprint = GetSprintInput.Invoke();
 
             UpdateVerticalSpeed(deltaTime);
 
+            _horizontalCurrentSpeed = !_isSprint ? _horizontalSpeed : _horizontalSprintSpeed;
+            
             var movement = (_transform.forward * dir.y + _transform.right * dir.x).normalized;
-            _characterController.Move(_horizontalSpeed * movement * deltaTime);
+            _characterController.Move(_horizontalCurrentSpeed * movement * deltaTime);
         }
         
         private bool CheckGrounded()
@@ -73,12 +80,14 @@ namespace NaughtyCharacter.Script
         public override void Subscribe(params Delegate[] subscribers)
         {
             EventExtensions.Subscribe(ref GetJumpInput, subscribers);
+            EventExtensions.Subscribe(ref GetSprintInput, subscribers);
             EventExtensions.Subscribe(ref GETInputShoot, subscribers);
         }
 
         public override void Unsubscribe(params Delegate[] unsubscribers)
         {
             EventExtensions.Unsubscribe(ref GetJumpInput, unsubscribers);
+            EventExtensions.Unsubscribe(ref GetSprintInput, unsubscribers);
             EventExtensions.Unsubscribe(ref GETInputShoot, unsubscribers);
         }
     }

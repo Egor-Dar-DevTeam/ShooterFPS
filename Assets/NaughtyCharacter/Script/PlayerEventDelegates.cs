@@ -9,6 +9,7 @@ namespace NaughtyCharacter.Script
         public delegate void GetDirection(Vector2 dir);
         public delegate bool GETHasMovementInput();
         public delegate bool GETInputShoot();      
+        public delegate bool GETSprintInput();      
         public delegate Transform GetArm();
         public delegate void Shoot(InputAction.CallbackContext context);
         public delegate void ReloadAmmo();

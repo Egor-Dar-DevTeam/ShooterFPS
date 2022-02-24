@@ -12,11 +12,12 @@ namespace NaughtyCharacter.Script
 {
     public sealed class NewInputSystem : MonoBehaviour, IEventHandler, IEventSubscriber
     {
-
         private Vector2 axisRot;
         private Vector2 dirMovement;
         private bool _jumpInput;
         private bool _shootInput;
+        private bool _sprintInput = false;
+        private bool GetSprintInput() => _sprintInput;
         private bool GetJumpInput() => _jumpInput;
         private bool GetShootInput() => _shootInput;
 
@@ -38,6 +39,12 @@ namespace NaughtyCharacter.Script
         private void OnDisable()
         {
             _inputActions.Disable();
+        }
+
+        public void OnSprintEvent(InputAction.CallbackContext context)
+        {
+            if (context.started || context.performed) _sprintInput = true;
+            if (context.canceled) _sprintInput = false;
         }
 
         public void OnJumpEvent(InputAction.CallbackContext context)
@@ -62,7 +69,6 @@ namespace NaughtyCharacter.Script
 
         public void OnShootEvent(InputAction.CallbackContext context)
         {
-           // ContextShoot = context;
             Shoot?.Invoke(context);
         }
 
@@ -117,7 +123,8 @@ namespace NaughtyCharacter.Script
             return new Delegate[]
             {
                 (PlayerEventDelegates.GETJumpInput) GetJumpInput,
-                (PlayerEventDelegates.GETInputShoot) GetShootInput
+                (PlayerEventDelegates.GETInputShoot) GetShootInput,
+                (PlayerEventDelegates.GETSprintInput) GetSprintInput
             };
         }
     }

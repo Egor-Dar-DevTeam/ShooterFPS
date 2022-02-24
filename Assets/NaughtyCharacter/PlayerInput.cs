@@ -57,6 +57,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""c71ffa97-d4a7-4edc-9e68-b0659e1631c2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -213,6 +221,17 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""ReloadAmmo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78de7302-5817-42d7-a865-288bc9444d1d"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -292,6 +311,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_MoseScroll = m_Player.FindAction("MoseScroll", throwIfNotFound: true);
         m_Player_ReloadAmmo = m_Player.FindAction("ReloadAmmo", throwIfNotFound: true);
+        m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Delta = m_Camera.FindAction("Delta", throwIfNotFound: true);
@@ -349,6 +369,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_MoseScroll;
     private readonly InputAction m_Player_ReloadAmmo;
+    private readonly InputAction m_Player_Sprint;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -358,6 +379,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @MoseScroll => m_Wrapper.m_Player_MoseScroll;
         public InputAction @ReloadAmmo => m_Wrapper.m_Player_ReloadAmmo;
+        public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -382,6 +404,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @ReloadAmmo.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReloadAmmo;
                 @ReloadAmmo.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReloadAmmo;
                 @ReloadAmmo.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReloadAmmo;
+                @Sprint.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -401,6 +426,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @ReloadAmmo.started += instance.OnReloadAmmo;
                 @ReloadAmmo.performed += instance.OnReloadAmmo;
                 @ReloadAmmo.canceled += instance.OnReloadAmmo;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
         }
     }
@@ -463,6 +491,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnMoseScroll(InputAction.CallbackContext context);
         void OnReloadAmmo(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {
