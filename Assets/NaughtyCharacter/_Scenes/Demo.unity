@@ -4029,6 +4029,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4e55762b-d37c-46b6-8912-ec5d15a1fd4a
     m_ActionName: Player/ReloadAmmo[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1749167138}
+        m_TargetAssemblyTypeName: NaughtyCharacter.Script.NewInputSystem, Assembly-CSharp
+        m_MethodName: OnSprintEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c71ffa97-d4a7-4edc-9e68-b0659e1631c2
+    m_ActionName: Player/Sprint[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
